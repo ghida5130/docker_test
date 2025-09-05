@@ -1,0 +1,28 @@
+<!-- 
+# docker
+    - linux가 제공하는 이런저런 기능을 짜집기 해서 유용하게 만들어둔거임
+        * 그래서 원래는 윈도우에서 사용불가 => wsl 기반으로 동작
+        * linux의 namespace : 프로그램끼리 영향을 주지않도록 분리시킴
+        * c-group(control group) : 프로그램마다 CPU, RAM을 얼마나 점유할지 정해줌
+    - linux의 runc를 이용하면 컨테이너를 만들어 볼 수 있음 => runc를 쉽게 사용하기위해 containerd가 나옴 => containerd를 쉽게 사용하기 위해 docker가 나옴
+    - 물론 이미지 빌드, docker hub 등의 추가 기능을 제공하여 편의성을 더욱 키우기도 함
+
+# docker 터미널 명령어
+    - 이미지 실행 : docker run 이름:태그명
+    - 백그라운드 실행(detached) : docker run -d -p 내컴퓨터포트:컨테이너포트 이름:태그명
+        * 로컬 포트와 도커 포트를 연결
+    - 실행중인 컨테이너 목록 : docker ps
+    - 실행중인 컨테이너 로그 출력 : docker logs 컨테이너명
+    - 실행중인 컨테이너 접속 : docker exec -it 컨테이너명 sh (터미널상에서 접속하는것)
+    - 실행중인 컨테이너 정지 : docker stop 컨테이너명
+    - 정지된 컨테이너 삭제 : docker rm 컨테이너명
+    - 실행중인 컨테이너 강제 삭제 : docker rm -f 컨테이너명
+    - 실행 시 환경변수 추가하기 : docker run -e 환경변수이름="값"
+
+# Dockerfile의 성능 최적화
+    * 프로젝트가 커지면 docker build 과정이 점점 길어짐
+    - 빌드 시간 단축 팁 : 변하지 않는 항목은 위에, 변동사항 많은 부분은 밑에 작성하기
+
+
+
+-->
