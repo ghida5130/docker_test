@@ -1,0 +1,34 @@
+services:
+    webserver:
+        image: dockertest:v1
+        ports:
+            - 8080:8080
+        depends_on:
+            - db
+        networks:
+            - mynet1
+            - mynet2
+    nginx:
+        image: nginx:1
+        ports:
+            - 80:80
+        networks:
+            - mynet1
+        restart: always
+    db:
+        image: postgres:17
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        networks:
+            - mynet2
+        volumes:
+            - postgres_vol:/var/lib/postgresql/data
+
+networks:
+    mynet1:
+    mynet2:
+
+volumes:
+    postgres_vol:
+        external: true
