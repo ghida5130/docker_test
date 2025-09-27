@@ -90,6 +90,33 @@
         - restart: always 옵션을 추가하면 컨테이너 종료시 자동 재시작을 해주며 docker 엔진이 껐다 켜져도 자동으로 시작해준다.
         - restart: unless-stopped 옵션을 추가하면 컨테이너 종료시에만 자동 재시작을 해주고 docker 엔진이 껐다 켜지면 자동 시작하지 않는다.
 
+# docker compose up 단계에서 자동 build
+    - 일반적으로 코드 수정 후 docker에서 실행하려면 이미지를 다시 만들어야한다. => docker-compose 파일에 build 옵션을 추가하여 해결할 수 있다.
+    - build 옵션과 경로를 추가하면 되며 docker compouse up 단계에서 --build 옵션을 추가하면 바로 이미지를 다시 빌드한다.
+
+# 컨테이너 종료 명령어 작성
+    - 일반적으로는 종료 명령어를 따로 작성해두어야 종료시 해당 명령어가 바로 수행되어 빠르게 종료가 된다.
+    - 그러나 종료 명령어가 없을 경우 컨테이너가 종료 명령을 실행할 수 없게되며 그 경우 10초 후에 강제로 종료된다.
+    - (express의 경우) process.on과 SIGTERM, SIGINT 이벤트를 감지하여 서버를 종료하는 코드를 작성해두면 된다. (SIGINT는 ctrl+c 이벤트이다.)
+    - server.close 명령어로 서버가 수행중인 작업을 마무리한뒤 안정적으로 종료 가능하며 DB 연결 해제등도 이곳에 추가하여 안정적으로 서버를 종료할 수 있다.
+    - 이러한 과정(종료 전 이것저것 필요한 작업을 하는)을 graceful shutdown 이라고 한다.
+
+# docker compose의 watch 기능
+    & watch 기능을 통해 docker 환경에서도 실시간 개발환경을 만들 수 있다.
+    & linux 환경에서 코드가 실행되는것이므로 당연히 nodemon, pm2 같은 프로그램을 사용하여 자동 재시작이 가능하다.
+    - 내 파일이 변경되면 컨테이너에도 자동으로 반영한다.
+    - watch 옵션을 추가하고 action, path, target, ignore 등을 설정하면 된다.
+    - build와 동일하게 --watch 옵션을 통해 실행해줘야한다.
+
+# command 옵션
+    - Dockerfile에 있는 CMD 명령어를 덮어쓰고 싶을때 사용한다.
+    - nodemon
+
+# Orchestraion
+    - docker 컨테이너를 여러개 사용해 마이크로서비스를 하는경우 수많은 컨테이너를 편하게 관리하는 툴
+    - kubernetes, docker swarm, amazon ECS 등이 있다.
+
+
 
 
 -->

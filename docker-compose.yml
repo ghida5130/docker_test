@@ -1,6 +1,18 @@
 services:
     webserver:
         image: dockertest:v1
+        build: .
+        develop:
+            watch:
+                - action: sync+restart # 파일이 변경되면 컨테이너에 자동 반영하고 웹서버도 재시작 (웹서버, NGINX 등은 모두 재시작되어야 변경된 파일이 반영됨)
+                  path: . # 이 경로에서 변경사항이 생기면
+                  target: /app # 컨테이너의 이 경로에 반영
+                  ignore: # 이 경로는 무시, dockerignore 파일이 있는경우 추가하지 않아도 됨
+                      - node_modules
+                      - .git
+
+                - action: rebuild # 파일이 변경되면 docker build부터 다시 수행
+                  path: package.json
         ports:
             - 8080:8080
         depends_on:
